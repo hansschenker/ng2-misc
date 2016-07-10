@@ -1,0 +1,26 @@
+<div *ngIf="paymentForm">
+    <div [formGroup]="paymentForm">
+        <div class="form-group">
+            <select id="" formControlName="type" class="form-control">
+                <option value="BANK">Bank</option>
+                <option value="CARD">Card</option>
+            </select>
+        </div>
+        <div class="form-group" *ngIf="paymentForm.controls.type.value === 'CARD'">
+            <label for="">Card no.</label>
+            <input type="text" class="form-control" formControlName="cardNo">
+            <small *ngIf="!paymentForm.controls.cardNo.valid"
+                class="text-danger">
+                mandatory.
+            </small>
+        </div>
+        <div class="form-group" *ngIf="paymentForm.controls.type.value === 'BANK'">
+            <label for="">Bank account no.</label>
+            <input type="text" class="form-control" formControlName="bankAccountNo">
+            <small *ngIf="!paymentForm.controls.bankAccountNo.valid"
+                class="text-danger">
+                mandatory.
+            </small>
+        </div>
+    </div>
+</div>

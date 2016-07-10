@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <!--model-->
+      <div class="margin-20">
+        Model driven
+      </div>
+      <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+        <div class="row">
+          <div class="form-group col-sm-6">
+            <label for="">Name</label>
+            <input type="text" class="form-control" formControlName="name">
+            <small *ngIf="!myForm.controls.name.valid" 
+              class="text-danger">
+              mandatory.
+            </small>
+          </div>
+          <div class="form-group col-sm-6">
+            <label for="">Email</label>
+            <input type="email" class="form-control" formControlName="email">
+            <small *ngIf="!myForm.controls.email.valid"
+              class="text-danger">
+              mandatory with correct format.
+            </small>
+          </div>
+        </div>
+        <div class="row" formGroupName="preference">
+          <div class="col-sm-6 form-group">
+            <label>Language</label>
+            <br>
+            <label class="radio-inline" *ngFor="let lang of languages">
+              <input type="radio" formControlName="language" [value]="lang.key">
+              {{ lang.value }}
+            </label>
+          </div>
+          <div class="form-group col-sm-6">
+            <label>nick name</label>
+            <input type="text" class="form-control" formControlName="nickName">
+          </div>
+        </div>
+        <!--payment methods-->
+        <div class="margin-20">
+          <a (click)="addPaymentMethod()" style="cursor: default">
+            Add another payment method +
+          </a>
+        </div>
+        <div formArrayName="paymentMethods" class="row">
+          <div *ngFor="let method of myForm.controls.paymentMethods.controls; let i=index" 
+            class="col-sm-4 col-xs-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <span>Payment Method {{i + 1}}</span>
+                <span class="glyphicon glyphicon-remove pull-right" 
+                  *ngIf="myForm.controls.paymentMethods.controls.length > 1" 
+                  (click)="removePaymentMethod(i)"></span>
+              </div>
+              <div class="panel-body" [formGroupName]="i">
+                <payment-method [form]="method"></payment-method>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--addresses-->
+        <div class="margin-20">
+          <a (click)="addAddress()" style="cursor: default">
+            Add another address +
+          </a>
+        </div>
+        <div formArrayName="addresses" class="row">
+          <div *ngFor="let address of myForm.controls.addresses.controls; let i=index" 
+            class="col-sm-4 col-xs-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <span>Address {{i + 1}}</span>
+                <span class="glyphicon glyphicon-remove pull-right"
+                  *ngIf="myForm.controls.addresses.controls.length > 1" 
+                  (click)="removeAddress(i)"></span>
+              </div>
+              <div class="panel-body" [formGroupName]="i">
+                <div class="form-group">
+                  <label>street</label>
+                  <input type="text" class="form-control" formControlName="street">
+                </div>
+                <div class="form-group">
+                  <label>postcode</label>
+                  <input type="text" class="form-control" formControlName="postcode">
+                  <small [hidden]="myForm.controls.addresses.controls[i].controls.postcode.valid" class="text-danger">
+                    postcode is required
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-20">
+          <button type="submit" class="btn btn-default pull-right">Submit</button>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="margin-20" *ngIf="!submitted">
+          <div>myForm details:-</div>
+          <pre>Is myForm valid?: <br>{{myForm.valid | json}}</pre>
+          <pre>Is myForm submitted?: <br>{{submitted | json}}</pre>
+          <pre>submitted value: <br>{{myForm.value | json}}</pre>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
