@@ -11,6 +11,14 @@ if (environment.production) {
   enableProdMode();
 }
 
+export class MyHammerConfig extends HammerGestureConfig  {
+   overrides = <any>{
+      'pan': {threshold: 5},
+      'swipeleft': {velocity: 0.3},
+      'swiperight': {velocity: 0.3},
+   }
+}
+
 bootstrap(AppComponent, [
   disableDeprecatedForms(),
   provide(HAMMER_GESTURE_CONFIG, {
@@ -22,3 +30,5 @@ bootstrap(AppComponent, [
   TranslateService,
   provide(PLATFORM_PIPES, { useValue: [TranslatePipe], multi: true })
 ]);
+
+

@@ -21,3 +21,12 @@
     top: 50%;
     max-width: none;
 }
+
+.box {
+    height: 100px;
+    width: 100px;
+}
+
+.bg-red {
+    background: palevioletred;
+}

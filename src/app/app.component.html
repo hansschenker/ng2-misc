@@ -1,14 +1,29 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <div class="margin-20">
-        <!--translate-->
+      <!--<div class="margin-20">
         <h4>translate</h4>
         <h4>{{ 'hello greet' | translate }}</h4>
-      </div>
-      <!--<div class="demo-box pan" >
-        <img #img class="active" (pinch)="panIt($event, img)" [style.margin-left]="margin" src="http://localhost:4200/pano-2.jpg" alt="">
       </div>-->
+      <!--<h4>Demo pan</h4>
+      <div class="demo-box pan" (pan)="trigger($event)">
+        <img #img class="active" [style.margin-left]="margin" 
+          src="http://localhost:4200/assets/pano-2.jpg" alt="">
+      </div>-->
+      <!--<h4>Demo swipe</h4>
+      <div class="demo-box pan" (swipeleft)="trigger($event)">
+        <img #img class="active" src="http://localhost:4200/assets/pano-2.jpg" alt="">
+      </div>-->
+      <h4>avatars</h4>
+      <div class="ui centered card" *ngFor="let avatar of avatars">
+        <div class="image">
+          <img src="assets/{{avatar.image}}" [alt]="avatar.name">
+        </div>
+        <div class="content">
+          <a class="header">{{avatar.name}}</a>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>

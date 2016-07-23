@@ -19,6 +19,21 @@ export class AppComponent implements OnInit {
 
     constructor(private _fb: FormBuilder, private trans: TranslateService) { }
 
+    avatars = [
+        {
+            name: 'elyse',
+            image: 'a-elyse.png'
+        },
+        {
+            name: 'matthew',
+            image: 'a-matthew.png'
+        },
+        {
+            name: 'molly',
+            image: 'a-molly.png'
+        }
+    ]
+
     ngOnInit() {
         
         // this.trans.currentLang = 'zh';
@@ -46,5 +61,9 @@ export class AppComponent implements OnInit {
             // img.style.marginLeft = margin + e.deltaX
             this.margin  = margin + e.deltaX;
         }
+    }
+
+    trigger(e:any) {
+        console.log(e);
     }
 }
