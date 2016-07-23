@@ -22,15 +22,18 @@ export class AppComponent implements OnInit {
     avatars = [
         {
             name: 'elyse',
-            image: 'a-elyse.png'
+            image: 'a-elyse.png',
+            visible: true
         },
         {
             name: 'matthew',
-            image: 'a-matthew.png'
+            image: 'a-matthew.png',
+            visible: false
         },
         {
             name: 'molly',
-            image: 'a-molly.png'
+            image: 'a-molly.png',
+            visible: false
         }
     ]
 
@@ -66,4 +69,27 @@ export class AppComponent implements OnInit {
     trigger(e:any) {
         console.log(e);
     }
+
+    swipeNext(currentIndex: number) {
+        console.log(currentIndex);
+
+        if (currentIndex > this.avatars.length || currentIndex < 0) return;
+
+        const isLast = currentIndex === this.avatars.length - 1;
+        const nextIndex = isLast? 0 : currentIndex + 1;
+
+        this.avatars.forEach((x,i) => x.visible = i === nextIndex ? true: false);
+    }
+
+    swipePrev(currentIndex: number) {
+        console.log(currentIndex);
+
+        if (currentIndex > this.avatars.length || currentIndex < 0) return;
+
+        const isFirst = currentIndex === 0;
+        const nextIndex = isFirst? this.avatars.length-1 : currentIndex-1;
+
+        this.avatars.forEach((x,i) => x.visible = i === nextIndex ? true: false);
+    }
+
 }

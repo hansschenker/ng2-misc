@@ -15,14 +15,20 @@
         <img #img class="active" src="http://localhost:4200/assets/pano-2.jpg" alt="">
       </div>-->
       <h4>avatars</h4>
-      <div class="ui centered card" *ngFor="let avatar of avatars">
-        <div class="image">
-          <img src="assets/{{avatar.image}}" [alt]="avatar.name">
-        </div>
-        <div class="content">
-          <a class="header">{{avatar.name}}</a>
+      <div class="ctn">
+        <div class="ui card test" 
+          (swipeleft)="swipeNext(idx)" (swiperight)="swipePrev(idx)" 
+          [class.visible]="avatar.visible" [class.hidden]="!avatar.visible"
+          *ngFor="let avatar of avatars; let idx=index">
+          <div class="image">
+            <img src="assets/{{avatar.image}}" [alt]="avatar.name">
+          </div>
+          <div class="content">
+            <a class="header">{{avatar.name}}</a>
+          </div>
         </div>
       </div>
+
     </div>
 
   </div>
