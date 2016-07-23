@@ -4,46 +4,47 @@ import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormArray, FormBuilder } from '@an
 import { Customer } from './shared/interfaces/customer.interface';
 import { AddressComponent } from './address/address.component';
 
+import { TranslateService } from './translate';
+
 @Component({
     moduleId: module.id,
     selector: 'app-root',
     templateUrl: 'app.component.html',
+    styleUrls: ['app.component.css'],
     directives: [REACTIVE_FORM_DIRECTIVES, AddressComponent]
 })
 export class AppComponent implements OnInit {
     public myForm: FormGroup;
+    public margin = -618 //-618;
 
-    constructor(private _fb: FormBuilder) { }
+    constructor(private _fb: FormBuilder, private trans: TranslateService) { }
 
     ngOnInit() {
-        this.myForm = this._fb.group({
-            name: ['', [Validators.required, Validators.minLength(5)]],
-            addresses: this._fb.array([
-                this.initAddress(),
-            ])
-        });
-    }
+        
+        // this.trans.currentLang = 'zh';
+        this.trans.setDefaultLang('zh');
+        this.trans.enableFallback(true);
 
-    initAddress() {
-        return this._fb.group({
-            street: ['', Validators.required],
-            postcode: ['']
-        });
-    }
+        this.trans.onLangChange.subscribe(x => console.log(x));
 
-    addAddress() {
-        const control = <FormArray>this.myForm.controls['addresses'];
-        control.push(this.initAddress());
-    }
+        this.trans.use('en');
+        this.trans.use('zh');
 
-    removeAddress(i: number) {
-        const control = <FormArray>this.myForm.controls['addresses'];
-        control.removeAt(i);
-    }
+        console.log(this.trans.instant('hello greet', ['ms.', 'jecelyn']));
+        ;
 
-    save(model: Customer) {
-        // call API to save
-        // ...
-        console.log(model);
+    }
+    panIt(e: any, img: HTMLImageElement) {
+        // document.getElementById('me')
+        
+        const margin = this.margin; // +img.style.marginLeft.replace('px', '');
+        var delta: number = margin + e.deltaX;
+
+        console.log(e, img, margin, delta);
+        console.log(delta, margin);
+        if (delta >= -1750 && delta <= -150) {
+            // img.style.marginLeft = margin + e.deltaX
+            this.margin  = margin + e.deltaX;
+        }
     }
 }
