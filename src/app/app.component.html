@@ -16,8 +16,8 @@
       </div>-->
       <h4>avatars</h4>
       <div class="ctn">
-        <div class="ui card test" 
-          (swipeleft)="swipeNext(idx)" (swiperight)="swipePrev(idx)" 
+        <div class="ui card swipe-box" 
+          (swipeleft)="swipe(idx, $event.type)" (swiperight)="swipe(idx, $event.type)" 
           [class.visible]="avatar.visible" [class.hidden]="!avatar.visible"
           *ngFor="let avatar of avatars; let idx=index">
           <div class="image">
